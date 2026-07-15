@@ -29,6 +29,7 @@ import ManageUsers from "../components/dashboards/ManageUsers";
 import AdminRequests from "../components/dashboards/AdminRequests";
 import ManageEvents from "../components/dashboards/ManageEvents";
 import ViewReports from "../components/dashboards/ViewReports";
+import Settings from "../pages/Settings";
 
 
 const AppRoutes = () => {
@@ -114,6 +115,8 @@ const AppRoutes = () => {
           path="/view-reports"
           element={<ViewReports />}
         />
+        <Route path="/settings"
+          element={<Settings />} />
 
       </Routes>
     </BrowserRouter>

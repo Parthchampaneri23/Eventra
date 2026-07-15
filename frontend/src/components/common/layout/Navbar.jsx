@@ -51,11 +51,13 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("user");
+    localStorage.removeItem("role");
 
     setIsLoggedIn(false);
     setUser(null);
 
     navigate("/");
+    window.location.reload();
   };
 
   return (
@@ -63,16 +65,16 @@ const Navbar = () => {
       <div className="container mx-auto flex items-center justify-between h-20 md:h-24 px-4">
 
         {/* Logo */}
-        <NavLink to="/" className="flex items-center">
+        <NavLink to="/" className="flex items-center overflow-hidden">
           <img
             src="/logo.png"
             alt="Eventra Logo"
-            className="h-12 md:h-16 w-auto object-contain transition-transform duration-300 hover:scale-105"
+            className="h-16 md:h-20 lg:h-24 w-auto object-contain transition-transform duration-300 hover:scale-105"
           />
         </NavLink>
 
         {/* Navigation */}
-        <nav className="flex items-center gap-6 overflow-x-auto scrollbar-hide whitespace-nowrap px-2">
+        <nav className="flex items-center gap-6 overflow-x-auto whitespace-nowrap px-2">
           {navLinks.map((link) => (
             <NavLink
               key={link.name}
@@ -114,9 +116,7 @@ const Navbar = () => {
               ref={dropdownRef}
             >
               <button
-                onClick={() =>
-                  setShowDropdown(!showDropdown)
-                }
+                onClick={() => setShowDropdown(!showDropdown)}
                 className="flex items-center gap-3 bg-gray-100 px-4 py-2 rounded-xl hover:bg-gray-200 transition"
               >
                 <FaUserCircle className="text-2xl text-primary" />
@@ -134,19 +134,66 @@ const Navbar = () => {
               {showDropdown && (
                 <div className="absolute right-0 mt-3 w-56 bg-white rounded-2xl shadow-xl border overflow-hidden">
 
+                  {/* My Profile */}
                   <button
+                    onClick={() => {
+                      navigate(
+                        user?.role === "client"
+                          ? "/client-profile"
+                          : "/talent-profile"
+                      );
+                      setShowDropdown(false);
+                    }}
                     className="w-full text-left px-5 py-3 hover:bg-gray-100"
                   >
                     👤 My Profile
                   </button>
 
-                  <button
-                    className="w-full text-left px-5 py-3 hover:bg-gray-100"
-                  >
-                    📅 My Applications
-                  </button>
+                  {/* Client */}
+                  {user?.role === "client" && (
+                    <button
+                      onClick={() => {
+                        navigate("/client-requests");
+                        setShowDropdown(false);
+                      }}
+                      className="w-full text-left px-5 py-3 hover:bg-gray-100"
+                    >
+                      📋 My Requests
+                    </button>
+                  )}
 
+                  {/* Talent */}
+                  {user?.role === "talent" && (
+                    <button
+                      onClick={() => {
+                        navigate("/talent-applications");
+                        setShowDropdown(false);
+                      }}
+                      className="w-full text-left px-5 py-3 hover:bg-gray-100"
+                    >
+                      📅 My Applications
+                    </button>
+                  )}
+
+                  {/* Admin */}
+                  {user?.role === "admin" && (
+                    <button
+                      onClick={() => {
+                        navigate("/admin-dashboard");
+                        setShowDropdown(false);
+                      }}
+                      className="w-full text-left px-5 py-3 hover:bg-gray-100"
+                    >
+                      🛠 Admin Dashboard
+                    </button>
+                  )}
+
+                  {/* Settings */}
                   <button
+                    onClick={() => {
+                      navigate("/settings");
+                      setShowDropdown(false);
+                    }}
                     className="w-full text-left px-5 py-3 hover:bg-gray-100"
                   >
                     ⚙️ Settings
@@ -154,6 +201,7 @@ const Navbar = () => {
 
                   <hr />
 
+                  {/* Logout */}
                   <button
                     onClick={handleLogout}
                     className="w-full text-left px-5 py-3 text-red-500 hover:bg-red-50"

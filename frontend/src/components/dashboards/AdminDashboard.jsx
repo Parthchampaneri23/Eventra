@@ -11,7 +11,6 @@ import {
 } from "react-icons/fa";
 
 const AdminDashboard = () => {
-  const user = JSON.parse(localStorage.getItem("user")) || {};
   const recentRequests = [
     {
       id: 1,
@@ -49,7 +48,7 @@ const AdminDashboard = () => {
         <div className="mt-8 bg-gradient-to-r from-primary to-secondary rounded-3xl text-white p-8">
 
           <h2 className="text-3xl font-bold">
-            Welcome, {user.name || "Admin"} 👋
+            Welcome Admin 👋
           </h2>
 
           <p className="mt-3 text-purple-100">

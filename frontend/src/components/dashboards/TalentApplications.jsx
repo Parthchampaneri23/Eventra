@@ -3,32 +3,48 @@ import Sidebar from "../../components/dashboard/Sidebar";
 import Topbar from "../../components/dashboard/Topbar";
 
 const TalentApplications = () => {
-    const [applications, setApplications] = useState([
-        {
-            id: 1,
-            client: "ABC Events",
-            event: "Wedding",
-            date: "22 Jul 2026",
-            location: "Mumbai",
-            status: "Pending",
-        },
-        {
-            id: 2,
-            client: "Royal Weddings",
-            event: "Engagement",
-            date: "28 Jul 2026",
-            location: "Surat",
-            status: "Approved",
-        },
-        {
-            id: 3,
-            client: "Dream Events",
-            event: "Corporate Event",
-            date: "05 Aug 2026",
-            location: "Pune",
-            status: "Pending",
-        },
-    ]);
+    const user = JSON.parse(localStorage.getItem("user")) || {};
+
+    // Demo users
+    const demoUsers = [
+        "Parth",
+        "Hemant",
+        "Rahul",
+        "Admin",
+    ];
+
+    const isDemoUser = demoUsers.includes(user.name);
+
+    const [applications, setApplications] = useState(
+        isDemoUser
+            ? [
+                {
+                    id: 1,
+                    client: "ABC Events",
+                    event: "Wedding",
+                    date: "22 Jul 2026",
+                    location: "Mumbai",
+                    status: "Pending",
+                },
+                {
+                    id: 2,
+                    client: "Royal Weddings",
+                    event: "Engagement",
+                    date: "28 Jul 2026",
+                    location: "Surat",
+                    status: "Approved",
+                },
+                {
+                    id: 3,
+                    client: "Dream Events",
+                    event: "Corporate Event",
+                    date: "05 Aug 2026",
+                    location: "Pune",
+                    status: "Pending",
+                },
+            ]
+            : []
+    );
 
     const updateStatus = (id, status) => {
         setApplications((prev) =>
@@ -82,83 +98,104 @@ const TalentApplications = () => {
 
                         <tbody>
 
-                            {applications.map((item) => (
+                            {applications.length === 0 ? (
 
-                                <tr
-                                    key={item.id}
-                                    className="border-b hover:bg-gray-50"
-                                >
+                                <tr>
 
-                                    <td className="p-4 font-medium">
-                                        {item.client}
-                                    </td>
-
-                                    <td className="p-4">
-                                        {item.event}
-                                    </td>
-
-                                    <td className="p-4">
-                                        {item.date}
-                                    </td>
-
-                                    <td className="p-4">
-                                        {item.location}
-                                    </td>
-
-                                    <td className="p-4 text-center">
-
-                                        <span
-                                            className={`px-4 py-2 rounded-full text-sm font-semibold
-                      ${item.status === "Approved"
-                                                    ? "bg-green-100 text-green-600"
-                                                    : item.status === "Rejected"
-                                                        ? "bg-red-100 text-red-600"
-                                                        : "bg-yellow-100 text-yellow-600"
-                                                }`}
-                                        >
-                                            {item.status}
-                                        </span>
-
-                                    </td>
-
-                                    <td className="p-4 text-center">
-
-                                        {item.status === "Pending" ? (
-                                            <div className="flex justify-center gap-2">
-
-                                                <button
-                                                    onClick={() =>
-                                                        updateStatus(item.id, "Approved")
-                                                    }
-                                                    className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition"
-                                                >
-                                                    Approve
-                                                </button>
-
-                                                <button
-                                                    onClick={() =>
-                                                        updateStatus(item.id, "Rejected")
-                                                    }
-                                                    className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition"
-                                                >
-                                                    Reject
-                                                </button>
-
-                                            </div>
-                                        ) : (
-                                            <button
-                                                disabled
-                                                className="bg-gray-300 text-gray-600 px-4 py-2 rounded-lg cursor-not-allowed"
-                                            >
-                                                Completed
-                                            </button>
-                                        )}
-
+                                    <td
+                                        colSpan="6"
+                                        className="text-center py-12 text-gray-500 font-semibold"
+                                    >
+                                        No applications available.
                                     </td>
 
                                 </tr>
 
-                            ))}
+                            ) : (
+
+                                applications.map((item) => (
+
+                                    <tr
+                                        key={item.id}
+                                        className="border-b hover:bg-gray-50"
+                                    >
+
+                                        <td className="p-4 font-medium">
+                                            {item.client}
+                                        </td>
+
+                                        <td className="p-4">
+                                            {item.event}
+                                        </td>
+
+                                        <td className="p-4">
+                                            {item.date}
+                                        </td>
+
+                                        <td className="p-4">
+                                            {item.location}
+                                        </td>
+
+                                        <td className="p-4 text-center">
+
+                                            <span
+                                                className={`px-4 py-2 rounded-full text-sm font-semibold
+                        ${item.status === "Approved"
+                                                        ? "bg-green-100 text-green-600"
+                                                        : item.status === "Rejected"
+                                                            ? "bg-red-100 text-red-600"
+                                                            : "bg-yellow-100 text-yellow-600"
+                                                    }`}
+                                            >
+                                                {item.status}
+                                            </span>
+
+                                        </td>
+
+                                        <td className="p-4 text-center">
+
+                                            {item.status === "Pending" ? (
+
+                                                <div className="flex justify-center gap-2">
+
+                                                    <button
+                                                        onClick={() =>
+                                                            updateStatus(item.id, "Approved")
+                                                        }
+                                                        className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition"
+                                                    >
+                                                        Approve
+                                                    </button>
+
+                                                    <button
+                                                        onClick={() =>
+                                                            updateStatus(item.id, "Rejected")
+                                                        }
+                                                        className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition"
+                                                    >
+                                                        Reject
+                                                    </button>
+
+                                                </div>
+
+                                            ) : (
+
+                                                <button
+                                                    disabled
+                                                    className="bg-gray-300 text-gray-600 px-4 py-2 rounded-lg cursor-not-allowed"
+                                                >
+                                                    Completed
+                                                </button>
+
+                                            )}
+
+                                        </td>
+
+                                    </tr>
+
+                                ))
+
+                            )}
 
                         </tbody>
 

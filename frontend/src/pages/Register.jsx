@@ -30,6 +30,17 @@ const Register = () => {
         role,
       });
 
+      // Store user info for dashboard personalization
+      const userInfo = { name, email, role };
+      localStorage.setItem("user", JSON.stringify(userInfo));
+
+      // Initialize empty data arrays for new users so dashboards start at 0
+      if (role === "client") {
+        localStorage.setItem("clientRequests", JSON.stringify([]));
+      } else if (role === "talent") {
+        localStorage.setItem("talentRequests", JSON.stringify([]));
+      }
+
       alert(response.data.message);
 
       navigate("/login");

@@ -13,26 +13,52 @@ import { Link } from "react-router-dom";
 
 const ClientDashboard = () => {
   const user = JSON.parse(localStorage.getItem("user")) || {};
-  const requests = [
-    {
-      id: 1,
-      talent: "Rahul Sharma",
-      role: "Photographer",
-      status: "Pending",
-    },
-    {
-      id: 2,
-      talent: "Priya Mehta",
-      role: "Singer",
-      status: "Approved",
-    },
-    {
-      id: 3,
-      talent: "Aman Patel",
-      role: "DJ",
-      status: "Rejected",
-    },
+
+  // Demo users who will see sample dashboard
+  const demoUsers = [
+    "Parth",
+    "Hemant",
+    "Rahul",
+    "Admin",
   ];
+
+  const isDemoUser = demoUsers.includes(user.name);
+
+  const requests = isDemoUser
+    ? [
+      {
+        id: 1,
+        talent: "Rahul Sharma",
+        role: "Photographer",
+        status: "Pending",
+      },
+      {
+        id: 2,
+        talent: "Priya Mehta",
+        role: "Singer",
+        status: "Approved",
+      },
+      {
+        id: 3,
+        talent: "Aman Patel",
+        role: "DJ",
+        status: "Rejected",
+      },
+    ]
+    : [];
+
+  const totalRequests = requests.length;
+  const pendingRequests = requests.filter(
+    (item) => item.status === "Pending"
+  ).length;
+
+  const approvedRequests = requests.filter(
+    (item) => item.status === "Approved"
+  ).length;
+
+  const rejectedRequests = requests.filter(
+    (item) => item.status === "Rejected"
+  ).length;
 
   return (
     <div className="flex bg-gray-100 min-h-screen">
@@ -61,28 +87,28 @@ const ClientDashboard = () => {
 
           <StatCard
             title="Total Requests"
-            value="24"
+            value={totalRequests}
             icon={<FaClipboardList />}
             color="bg-purple-600"
           />
 
           <StatCard
             title="Pending"
-            value="8"
+            value={pendingRequests}
             icon={<FaClock />}
             color="bg-yellow-500"
           />
 
           <StatCard
             title="Approved"
-            value="14"
+            value={approvedRequests}
             icon={<FaCheckCircle />}
             color="bg-green-500"
           />
 
           <StatCard
             title="Rejected"
-            value="2"
+            value={rejectedRequests}
             icon={<FaTimesCircle />}
             color="bg-red-500"
           />
@@ -101,37 +127,47 @@ const ClientDashboard = () => {
 
             <div className="space-y-4">
 
-              {requests.map((item) => (
-                <div
-                  key={item.id}
-                  className="flex justify-between items-center border rounded-xl p-4"
-                >
-                  <div>
+              {requests.length === 0 ? (
 
-                    <h3 className="font-semibold">
-                      {item.talent}
-                    </h3>
+                <div className="text-center py-10 text-gray-500 font-medium">
+                  No hiring requests yet.
+                </div>
 
-                    <p className="text-gray-500 text-sm">
-                      {item.role}
-                    </p>
+              ) : (
+
+                requests.map((item) => (
+                  <div
+                    key={item.id}
+                    className="flex justify-between items-center border rounded-xl p-4"
+                  >
+                    <div>
+
+                      <h3 className="font-semibold">
+                        {item.talent}
+                      </h3>
+
+                      <p className="text-gray-500 text-sm">
+                        {item.role}
+                      </p>
+
+                    </div>
+
+                    <span
+                      className={`px-4 py-2 rounded-full text-sm font-semibold
+              ${item.status === "Approved"
+                          ? "bg-green-100 text-green-600"
+                          : item.status === "Pending"
+                            ? "bg-yellow-100 text-yellow-600"
+                            : "bg-red-100 text-red-600"
+                        }`}
+                    >
+                      {item.status}
+                    </span>
 
                   </div>
+                ))
 
-                  <span
-                    className={`px-4 py-2 rounded-full text-sm font-semibold
-                    ${item.status === "Approved"
-                        ? "bg-green-100 text-green-600"
-                        : item.status === "Pending"
-                          ? "bg-yellow-100 text-yellow-600"
-                          : "bg-red-100 text-red-600"
-                      }`}
-                  >
-                    {item.status}
-                  </span>
-
-                </div>
-              ))}
+              )}
 
             </div>
 

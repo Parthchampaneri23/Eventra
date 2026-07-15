@@ -2,32 +2,32 @@ import { useState, useEffect } from "react";
 import { FaTimes, FaCheckCircle } from "react-icons/fa";
 
 const HireTalentModal = ({ talent, open, onClose }) => {
-const [submitted, setSubmitted] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
-const initialForm = {
-  company: "",
-  organizer: "",
-  email: "",
-  phone: "",
-  eventType: "",
-  eventDate: "",
-  location: "",
-  budget: "",
-  message: "",
-};
+  const initialForm = {
+    company: "",
+    organizer: "",
+    email: "",
+    phone: "",
+    eventType: "",
+    eventDate: "",
+    location: "",
+    budget: "",
+    message: "",
+  };
 
-const [form, setForm] = useState(initialForm);
-const [errors, setErrors] = useState({});
+  const [form, setForm] = useState(initialForm);
+  const [errors, setErrors] = useState({});
 
-useEffect(() => {
-  if (open) {
-    setSubmitted(false);
-    setErrors({});
-    setForm(initialForm);
-  }
-}, [open]);
+  useEffect(() => {
+    if (open) {
+      setSubmitted(false);
+      setErrors({});
+      setForm(initialForm);
+    }
+  }, [open]);
 
-if (!open || !talent) return null;
+  if (!open || !talent) return null;
 
   if (!open) return null;
 
@@ -45,6 +45,8 @@ if (!open || !talent) return null;
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    e.stopPropagation();
+    console.log("Button Clicked");
 
     let newErrors = {};
 
@@ -258,7 +260,7 @@ if (!open || !talent) return null;
                   className="w-full border rounded-xl p-3"
                 />
 
-                <button className="w-full bg-primary text-white py-4 rounded-xl hover:bg-secondary">
+                <button type="submit" onClick={(e) => e.stopPropagation()} className="w-full bg-primary text-white py-4 rounded-xl hover:bg-secondary">
                   Send Hiring Request
                 </button>
 
