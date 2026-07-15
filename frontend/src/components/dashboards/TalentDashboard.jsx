@@ -10,6 +10,7 @@ import {
 } from "react-icons/fa";
 
 const TalentDashboard = () => {
+  const user = JSON.parse(localStorage.getItem("user")) || {};
   const requests = [
     {
       id: 1,
@@ -47,7 +48,7 @@ const TalentDashboard = () => {
         <div className="mt-8 bg-gradient-to-r from-primary to-secondary rounded-3xl text-white p-8">
 
           <h2 className="text-3xl font-bold">
-            Welcome Back 👋
+            Welcome Back, {user.name || "Talent"} 👋
           </h2>
 
           <p className="mt-3 text-purple-100">

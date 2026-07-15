@@ -12,6 +12,7 @@ import {
 import { Link } from "react-router-dom";
 
 const ClientDashboard = () => {
+  const user = JSON.parse(localStorage.getItem("user")) || {};
   const requests = [
     {
       id: 1,
@@ -46,7 +47,7 @@ const ClientDashboard = () => {
         <div className="mt-8 bg-gradient-to-r from-primary to-secondary rounded-3xl text-white p-8">
 
           <h2 className="text-3xl font-bold">
-            Welcome Back, Parth 👋
+            Welcome Back, {user.name || "Client"} 👋
           </h2>
 
           <p className="mt-3 text-purple-100">
