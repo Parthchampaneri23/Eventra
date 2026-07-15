@@ -1,0 +1,58 @@
+export const talents = [
+  {
+    id: 1,
+    name: "Rahul Sharma",
+    role: "Musician",
+    location: "Ahmedabad",
+    rating: 4.9,
+    experience: "8 Years",
+    projects: "120+",
+    available: true,
+    skills: ["Guitar", "Piano", "Live Band"],
+    image: "\music (1).jpeg",
+    about:
+      "Professional musician with over 8 years of experience performing at weddings, concerts, festivals, and corporate events across India.",
+  },
+  {
+    id: 2,
+    name: "Priya Patel",
+    role: "Graphic Designer",
+    location: "Surat",
+    rating: 4.8,
+    experience: "6 Years",
+    projects: "95+",
+    available: true,
+    skills: ["Branding", "Photoshop", "UI Design"],
+    image: "\graphic designer.webp",
+    about:
+      "Creative designer specializing in branding, posters, event banners, and social media marketing materials.",
+  },
+  {
+    id: 3,
+    name: "Amit Verma",
+    role: "Photographer",
+    location: "Mumbai",
+    rating: 5.0,
+    experience: "10 Years",
+    projects: "180+",
+    available: false,
+    skills: ["Wedding", "Events", "Editing"],
+    image: "\pic.jpg",
+    about:
+      "Award-winning photographer experienced in weddings, concerts, fashion shoots, and corporate events.",
+  },
+  {
+    id: 4,
+    name: "Neha Shah",
+    role: "Frontend Developer",
+    location: "Pune",
+    rating: 4.9,
+    experience: "5 Years",
+    projects: "80+",
+    available: true,
+    skills: ["React", "Node.js", "MongoDB"],
+    image: "\kelly-sikkema-YK0HPwWDJ1I-unsplash.jpg",
+    about:
+      "Frontend developer passionate about building fast, modern, and responsive web applications for startups.",
+  },
+];
